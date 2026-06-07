@@ -75,65 +75,67 @@ document.addEventListener('DOMContentLoaded', () => {
     let isRecording = false;
     let waveInterval;
     
-    voiceTestBtn.addEventListener('click', () => {
-        if (!isRecording) {
-            // Start Simulated Recording
-            isRecording = true;
-            voiceBtnText.innerText = "Đang ghi âm giọng của bạn...";
-            voiceStatusDot.classList.add('recording');
-            voiceTestPrompt.classList.remove('hidden');
-            voiceAnalysisResult.classList.add('hidden');
+    if (voiceTestBtn) {
+        voiceTestBtn.addEventListener('click', () => {
+            if (!isRecording) {
+                // Start Simulated Recording
+                isRecording = true;
+                voiceBtnText.innerText = "Đang ghi âm giọng của bạn...";
+                voiceStatusDot.classList.add('recording');
+                voiceTestPrompt.classList.remove('hidden');
+                voiceAnalysisResult.classList.add('hidden');
+                
+                // Activate wave bars animations
+                voiceWaveBars.forEach((bar, index) => {
+                    bar.classList.add('active');
+                    // Give random delay to simulate audio wave fluctuations
+                    bar.style.animationDelay = `${index * 0.1}s`;
+                });
+                
+                // Randomize height dynamics during simulated recording
+                waveInterval = setInterval(() => {
+                    voiceWaveBars.forEach(bar => {
+                        const randomHeight = Math.floor(Math.random() * 75) + 15;
+                        bar.style.setProperty('--h', `${randomHeight}px`);
+                    });
+                }, 100);
+                
+                // Stop and Analyze after 3.5 seconds
+                setTimeout(() => {
+                    stopVoiceSimulation();
+                }, 3500);
+                
+            } else {
+                // Reset state
+                resetVoiceSimulation();
+            }
+        });
+        
+        function stopVoiceSimulation() {
+            clearInterval(waveInterval);
+            isRecording = false;
+            voiceStatusDot.classList.remove('recording');
             
-            // Activate wave bars animations
-            voiceWaveBars.forEach((bar, index) => {
-                bar.classList.add('active');
-                // Give random delay to simulate audio wave fluctuations
-                bar.style.animationDelay = `${index * 0.1}s`;
+            // Disable wave animation classes
+            voiceWaveBars.forEach(bar => {
+                bar.classList.remove('active');
+                bar.style.setProperty('--h', '30px'); // reset to calm state
             });
             
-            // Randomize height dynamics during simulated recording
-            waveInterval = setInterval(() => {
-                voiceWaveBars.forEach(bar => {
-                    const randomHeight = Math.floor(Math.random() * 75) + 15;
-                    bar.style.setProperty('--h', `${randomHeight}px`);
-                });
-            }, 100);
-            
-            // Stop and Analyze after 3.5 seconds
-            setTimeout(() => {
-                stopVoiceSimulation();
-            }, 3500);
-            
-        } else {
-            // Reset state
-            resetVoiceSimulation();
+            // Display analysis result panel
+            voiceTestPrompt.classList.add('hidden');
+            voiceAnalysisResult.classList.remove('hidden');
+            voiceBtnText.innerText = "Bắt đầu thử giọng lại";
         }
-    });
-    
-    function stopVoiceSimulation() {
-        clearInterval(waveInterval);
-        isRecording = false;
-        voiceStatusDot.classList.remove('recording');
         
-        // Disable wave animation classes
-        voiceWaveBars.forEach(bar => {
-            bar.classList.remove('active');
-            bar.style.setProperty('--h', '30px'); // reset to calm state
-        });
-        
-        // Display analysis result panel
-        voiceTestPrompt.classList.add('hidden');
-        voiceAnalysisResult.classList.remove('hidden');
-        voiceBtnText.innerText = "Bắt đầu thử giọng lại";
-    }
-    
-    function resetVoiceSimulation() {
-        voiceAnalysisResult.classList.add('hidden');
-        voiceTestPrompt.classList.remove('hidden');
-        voiceBtnText.innerText = "Bắt đầu kiểm tra tiếng Anh";
-        voiceWaveBars.forEach(bar => {
-            bar.style.setProperty('--h', '25px');
-        });
+        function resetVoiceSimulation() {
+            voiceAnalysisResult.classList.add('hidden');
+            voiceTestPrompt.classList.remove('hidden');
+            voiceBtnText.innerText = "Bắt đầu kiểm tra tiếng Anh";
+            voiceWaveBars.forEach(bar => {
+                bar.style.setProperty('--h', '25px');
+            });
+        }
     }
 
     // ---------------------------------- //
