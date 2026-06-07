@@ -1183,6 +1183,23 @@ h1, h2, h3, h4 {
 .detail-content .d-quote { font-family: var(--font-hand); font-size: 1rem; color: var(--sky); margin-bottom: 14px; }
 .detail-content p { font-size: 0.95rem; color: var(--text-body); line-height: 1.65; }
 
+.detail-image-box {
+    margin-top: 24px;
+    max-width: 600px;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1.5px solid var(--sky-light);
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.detail-image-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* Extra card after sessions */
 .curriculum-extra-card {
     background: linear-gradient(135deg, rgba(3, 105, 94, 0.06) 0%, rgba(35, 157, 202, 0.05) 100%);

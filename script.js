@@ -425,7 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
             icon: '😊', num: 'SESSION 1',
             title: 'Speak With Joy - Tiếng Anh Hạnh Phúc',
             quote: '"Làm chủ Tiếng Anh từ nền tảng độc lập, tự tin, hạnh phúc"',
-            desc: 'Giải phóng nỗi sợ giao tiếp, khơi dậy cảm hứng và xây dựng nền tảng tiếng Anh vững chắc từ gốc rễ. Bạn học cách làm chủ ngôn ngữ từ bên trong để nói tiếng Anh một cách độc lập, tự tin và tràn đầy hạnh phúc thực sự.'
+            desc: 'Giải phóng nỗi sợ giao tiếp, khơi dậy cảm hứng và xây dựng nền tảng tiếng Anh vững chắc từ gốc rễ. Bạn học cách làm chủ ngôn ngữ từ bên trong để nói tiếng Anh một cách độc lập, tự tin và tràn đầy hạnh phúc thực sự.',
+            img: 'picnic.jpg'
         },
         s2: {
             icon: '🎵', num: 'SESSION 2',
@@ -476,6 +477,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('detail-title').textContent = data.title;
             document.getElementById('detail-quote').textContent = data.quote;
             document.getElementById('detail-desc').textContent = data.desc;
+
+            // Show/Hide image
+            const imgBox = document.getElementById('detail-image-box');
+            const imgEl = document.getElementById('detail-img');
+            if (data.img) {
+                imgEl.src = data.img;
+                imgBox.style.display = 'block';
+            } else {
+                imgBox.style.display = 'none';
+                imgEl.src = '';
+            }
 
             // Show panel
             sessionDetailPanel.classList.add('active');
